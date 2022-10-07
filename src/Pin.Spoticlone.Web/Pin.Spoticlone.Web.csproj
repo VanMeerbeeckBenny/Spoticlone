@@ -7,10 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Models\" />
-    <Folder Include="Dtos\" />
     <Folder Include="Components\" />
-    <Folder Include="Services\" />
   </ItemGroup>
 
 </Project>
