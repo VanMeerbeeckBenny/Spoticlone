@@ -1,5 +1,8 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
+using Pin.Spoticlone.Web.Interfaces;
+using Pin.Spoticlone.Web.Models;
+using Pin.Spoticlone.Web.Services;
 
 namespace Pin.Spoticlone.Web
 {
@@ -11,7 +14,9 @@ namespace Pin.Spoticlone.Web
 
             // Add services to the container.
             builder.Services.AddRazorPages();
-            builder.Services.AddServerSideBlazor();            
+            builder.Services.AddServerSideBlazor();
+            builder.Services.AddScoped<ICRUDService<Artist>, ArtistApiService>();
+            builder.Services.AddScoped<HttpClient>();
 
             var app = builder.Build();
 
