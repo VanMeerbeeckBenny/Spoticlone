@@ -76,3 +76,8 @@ figure.basic-artist, img {
     color:white;
     border-radius:25px;
 }
+
+.red{
+    color:red;
+    font-weight:bold;
+}
