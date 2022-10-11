@@ -1,9 +1,9 @@
 ﻿<h3 class="mb-5">ArtistList</h3>
 
-<div class="d-flex justify-content-between">
+<div class="d-flex justify-content-between flex-wrap">
     @foreach (var artist in Artists)
     {
-        <div class="card artist-card" @onclick="e => OnDetails.InvokeAsync(artist)">
+        <div class="card artist-card mb-5" @onclick="e => OnDetails.InvokeAsync(artist)">
             <div class="card-body">
 
                 <img src="@artist.Image" title="@artist.Name" alt="@artist.Name" />
@@ -19,7 +19,8 @@
  </div>
 
 
-    @code {
+    @code {     
+
         [Parameter]
         public IEnumerable<Artist> Artists { get; set; }
         [Parameter]
