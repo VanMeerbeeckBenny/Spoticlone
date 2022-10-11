@@ -14,7 +14,7 @@ namespace Pin.Spoticlone.Web.Services
             _httpClient = new HttpClient();
         }
 
-        public Task Create(Artist item)
+        public Task Create(ItemResultModel<Artist> item)
         {
             throw new NotImplementedException();
         }
@@ -24,25 +24,43 @@ namespace Pin.Spoticlone.Web.Services
             throw new NotImplementedException();
         }
 
-        public async Task<IEnumerable<Artist>> GetAllAsync()
+        public async Task<ItemResultModel<Artist>> GetAllAsync()
         {
-            var artists = await _httpClient.GetFromJsonAsync<IEnumerable<ArtistResponseDto>>("https://localhost:44319/api/Artists");
-            return artists.Select(a => new Artist
+            try
             {
-                Id = a.Id,
-                Name = a.Name,
-                Followers = a.Followers,
-                Popularity = a.Popularity,
-                Image = a.Image,
-            });
+                var artists = await _httpClient.GetFromJsonAsync<IEnumerable<ArtistResponseDto>>("https://localhost:44319/api/Artists");
+                return new ItemResultModel<Artist>
+                {
+                    IsSucces = true,
+                    Items = artists.Select(a => new Artist
+                    {
+                        Id = a.Id,
+                        Name = a.Name,
+                        Image = a.Image,
+                        AlbumsCount = a.AlbumsCount,
+                        Followers = a.Followers,
+                        Popularity = a.Popularity,
+                        SpotifyId = a.SpotifyId,
+                    }).ToList(),
+                }; 
+            }
+            catch (Exception)
+            {
+
+                return new ItemResultModel<Artist> 
+                {                    
+                    Error = "Something went wrong!"
+                };
+            }
+            
         }
 
-        public Task<Artist> GetById(int id)
+        public Task<ItemResultModel<Artist>> GetById(int id)
         {
             throw new NotImplementedException();
         }
 
-        public Task Update(Artist item)
+        public Task Update(ItemResultModel<Artist> item)
         {
             throw new NotImplementedException();
         }
