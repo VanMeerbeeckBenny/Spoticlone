@@ -1,4 +1,4 @@
-﻿using Pin.Spoticlone.Web.Dtos;
+﻿using Pin.Spoticlone.Web.ApiDtos;
 using Pin.Spoticlone.Web.Interfaces;
 using Pin.Spoticlone.Web.Models;
 
