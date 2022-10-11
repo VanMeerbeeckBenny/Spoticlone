@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pin.Spoticlone.Core", "Pin.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pin.Spoticlone.Infrastructure", "Pin.Spoticlone.Infrastructure\Pin.Spoticlone.Infrastructure.csproj", "{9A10FF91-24AF-4D52-AEED-AB19D523BFD3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pin.Spoticlone.Web", "Pin.Spoticlone.Web\Pin.Spoticlone.Web.csproj", "{92DE8319-CB3B-4CE4-82D4-1B7F73B134B6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pin.Spoticlone.Web", "Pin.Spoticlone.Web\Pin.Spoticlone.Web.csproj", "{92DE8319-CB3B-4CE4-82D4-1B7F73B134B6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
