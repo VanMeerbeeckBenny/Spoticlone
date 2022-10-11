@@ -5,9 +5,9 @@ namespace Pin.Spoticlone.Web.Interfaces
     public interface ICRUDService<T> where T : BaseEntitie
     {
         Task<ItemResultModel<T>> GetAllAsync();
-        Task<ItemResultModel<T>> GetById(int id);
+        Task<ItemResultModel<T>> GetById(string id);
         Task Create(ItemResultModel<T> item);
         Task Update(ItemResultModel<T> item);
-        Task Delete(Guid id);
+        Task Delete(string id);
     }
 }
