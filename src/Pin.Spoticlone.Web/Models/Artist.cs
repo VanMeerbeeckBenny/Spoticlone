@@ -8,5 +8,6 @@
         public string SpotifyId { get; set; }
         public Uri Image { get; set; }
         public int AlbumsCount { get; set; }
+        public IEnumerable<Genre> Genres { get; set; }
     }
 }
