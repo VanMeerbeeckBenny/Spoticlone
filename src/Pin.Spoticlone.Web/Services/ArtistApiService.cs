@@ -5,13 +5,13 @@ using static System.Net.WebRequestMethods;
 
 namespace Pin.Spoticlone.Web.Services
 {
-    public class ArtistsApiService : IArtistService
+    public class ArtistApiService : IArtistService
     {
         private string baseUrl = "https://localhost:44319/api/Artists";
         HttpClient _httpClient = null;
 
 
-        public ArtistsApiService()
+        public ArtistApiService()
         {
             _httpClient = new HttpClient();
             _httpClient.BaseAddress = new Uri(baseUrl);

@@ -5,12 +5,12 @@ using System.Net.Http;
 
 namespace Pin.Spoticlone.Web.Services
 {
-    public class AlbumsApiService : IAlbumService
+    public class AlbumApiService : IAlbumService
     {
         private string baseUrl = "https://localhost:44319/api/Genres";
         private HttpClient _httpClient;
 
-        public AlbumsApiService()
+        public AlbumApiService()
         {
             _httpClient = new HttpClient();
             _httpClient.BaseAddress = new Uri(baseUrl);
