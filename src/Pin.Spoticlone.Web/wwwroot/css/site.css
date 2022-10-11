@@ -62,3 +62,17 @@ a, .btn-link {
     .blazor-error-boundary::after {
         content: "An error has occurred."
     }
+
+figure.basic-artist, img {
+    max-height: 250px;
+    max-width: 250px;
+    min-height: 250px;
+    min-width: 250px;
+    border-radius: 25px;
+}
+
+.artist-card{
+    background-color:black;
+    color:white;
+    border-radius:25px;
+}
