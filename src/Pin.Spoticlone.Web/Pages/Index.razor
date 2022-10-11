@@ -1,13 +1,14 @@
 ﻿@page "/"
 @inject ICRUDService<Artist> ArtistService;
 
+@if (Error == null)
+{
     @if (Artists != null)
     {
         if (currentArtist == null)
         {
             <ArtistList Artists="Artists"
                         OnDetails="ShowDetails">
-
             </ArtistList>
         }
         else
@@ -25,12 +26,23 @@
 
 
 
+}
+else
+            {
+<div class="alert alert-danger" role="alert">
+    @Error
+</div>
+            }
+
+
+
 
 
 
 @code{
 
     public IEnumerable<Artist> Artists { get; set; }
+    public string Error { get; set; }
     private Artist currentArtist;
 
 
@@ -43,7 +55,9 @@
     public async Task RefreshCategories()
     {
 
-        Artists = await ArtistService.GetAllAsync();
+        var result = await ArtistService.GetAllAsync();
+        if (result.IsSucces) Artists = result.Items;
+        else Error = result.Error;
 
     }
 
