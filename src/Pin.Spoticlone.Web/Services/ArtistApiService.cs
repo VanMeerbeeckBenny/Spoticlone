@@ -1,17 +1,20 @@
 ﻿using Pin.Spoticlone.Web.ApiDtos;
 using Pin.Spoticlone.Web.Interfaces;
 using Pin.Spoticlone.Web.Models;
+using static System.Net.WebRequestMethods;
 
 namespace Pin.Spoticlone.Web.Services
 {
-    public class ArtistApiService : ICRUDService<Artist>
+    public class ArtistsApiService : IArtistService
     {
+        private string baseUrl = "https://localhost:44319/api/Artists";
         HttpClient _httpClient = null;
 
 
-        public ArtistApiService()
+        public ArtistsApiService()
         {
             _httpClient = new HttpClient();
+            _httpClient.BaseAddress = new Uri(baseUrl);
         }
 
         public Task Create(ItemResultModel<Artist> item)
@@ -19,7 +22,7 @@ namespace Pin.Spoticlone.Web.Services
             throw new NotImplementedException();
         }
 
-        public Task Delete(Guid id)
+        public Task Delete(string id)
         {
             throw new NotImplementedException();
         }
@@ -28,7 +31,7 @@ namespace Pin.Spoticlone.Web.Services
         {
             try
             {
-                var artists = await _httpClient.GetFromJsonAsync<IEnumerable<ArtistResponseDto>>("https://localhost:44319/api/Artists");
+                var artists = await _httpClient.GetFromJsonAsync<IEnumerable<ArtistResponseDto>>(_httpClient.BaseAddress);
                 return new ItemResultModel<Artist>
                 {
                     IsSucces = true,
@@ -41,6 +44,10 @@ namespace Pin.Spoticlone.Web.Services
                         Followers = a.Followers,
                         Popularity = a.Popularity,
                         SpotifyId = a.SpotifyId,
+                        Genres = a.Genres.Select(g => new Genre { 
+                            Id = g.Id,
+                            Name = g.Name
+                        }).ToList()
                     }).ToList(),
                 }; 
             }
@@ -55,7 +62,7 @@ namespace Pin.Spoticlone.Web.Services
             
         }
 
-        public Task<ItemResultModel<Artist>> GetById(int id)
+        public Task<ItemResultModel<Artist>> GetById(string id)
         {
             throw new NotImplementedException();
         }
