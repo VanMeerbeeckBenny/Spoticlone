@@ -1,0 +1,29 @@
+﻿<header class="d-flex border-bottom">
+    <div class="w-75 text-center d-flex justify-content-center align-items-center">
+        <h1 class="title">@Artist.Name</h1>
+    </div>    
+    <figure class="small-img">
+        <img class="small-img" src="@Artist.Image" alt="@Artist.Name" title="@Artist.Name" />
+    </figure>
+</header>
+<div >
+    <div class="mt-3">
+        @foreach (var genre in Artist.Genres)
+        {
+            <span class="badge rounded-pill bg-secondary me-3 pe-4 ps-4 genre-badge">@genre.Name</span>
+        }
+    </div>
+</div>
+
+
+
+@code {
+
+    [Parameter]
+    public Artist Artist { get; set; }
+
+    protected override Task OnInitializedAsync()
+    {
+        return base.OnInitializedAsync();
+    }
+}
