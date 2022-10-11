@@ -71,6 +71,14 @@ figure.basic-artist, img {
     border-radius: 25px;
 }
 
+.small-img {
+    max-height: 150px;
+    max-width: 150px;
+    min-height: 150px;
+    min-width: 150px;
+    border-radius: 25px;
+}
+
 .artist-card{
     background-color:black;
     color:white;
@@ -80,4 +88,12 @@ figure.basic-artist, img {
 .red{
     color:red;
     font-weight:bold;
+}
+
+.title{
+    font-size:5em;
+}
+
+.genre-badge{
+    font-size:1.1em;
 }
