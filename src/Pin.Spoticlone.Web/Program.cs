@@ -15,7 +15,9 @@ namespace Pin.Spoticlone.Web
             // Add services to the container.
             builder.Services.AddRazorPages();
             builder.Services.AddServerSideBlazor();
-            builder.Services.AddScoped<ICRUDService<Artist>, ArtistApiService>();
+            builder.Services.AddScoped<IArtistService, ArtistApiService>();
+            builder.Services.AddScoped<IAlbumService, AlbumApiService>();
+            builder.Services.AddScoped<IGenreService, GenreApiService>();
             builder.Services.AddScoped<HttpClient>();
 
             var app = builder.Build();

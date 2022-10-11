@@ -1,5 +1,6 @@
 ﻿@page "/"
-@inject ICRUDService<Artist> ArtistService;
+@inject IArtistService ArtistService;
+
 
 @if (Error == null)
 {
@@ -13,7 +14,7 @@
         }
         else
         {
-            <p>SomeDetails</p>
+            <ArtistDetails Artist="currentArtist"></ArtistDetails>
         }
 
     }
@@ -28,11 +29,11 @@
 
 }
 else
-            {
-<div class="alert alert-danger" role="alert">
-    @Error
-</div>
-            }
+{
+    <div class="alert alert-danger" role="alert">
+        @Error
+    </div>
+}
 
 
 
