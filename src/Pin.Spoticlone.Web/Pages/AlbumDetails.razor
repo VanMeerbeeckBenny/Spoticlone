@@ -14,17 +14,27 @@
                 <figure class="small-img">
                     <img class="small-img" src="@album.Album.Image" alt="@album.Album.Name" title="@album.Album.Name" />
                 </figure>
-            </div>  
+            </div>
 
         </header>
-
-        <TrackList Tracks="album.Tracks"
-                   OnDelete="DeleteTrack"
-                   OnUpdate="UpdateTrack">
-        </TrackList>
+        if (currentTrack == null)
+        {
+            <TrackList Tracks="album.Tracks"
+                       OnDelete="DeleteTrack"
+                       OnUpdate="UpdateTrack">
+            </TrackList>
             <AlbumList ArtistId="album.Album.ArtistId"
                        OnShowAlbumDetails="ShowDetails">
-                </AlbumList>
+            </AlbumList>
+        }
+        else
+        {
+            <TrackForm Track="currentTrack">
+
+            </TrackForm>
+        }
+
+
     }
     else
     {
@@ -42,9 +52,11 @@ else
 
 @code {
     private string error;
-    [Parameter]
-    public Guid AlbumId{ get; set; }    
+    private Track currentTrack;
     private AlbumWithTracks album;
+    [Parameter]
+    public Guid AlbumId { get; set; }
+
 
 
     protected override async Task OnParametersSetAsync()
@@ -66,7 +78,7 @@ else
 
     public async Task UpdateTrack(Track track)
     {
-
+        currentTrack = track;
     }
 
     public async Task DeleteTrack(Guid trackId)
