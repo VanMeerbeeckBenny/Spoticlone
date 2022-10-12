@@ -52,6 +52,8 @@
     private string error;
     [Parameter]
     public Artist Artist { get; set; }
+    [Parameter]
+    public EventCallback<Guid> AlbumId { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
@@ -62,16 +64,14 @@
 
     }
 
-    
-
     public async Task ShowalbumDetails(Guid id)
     {
-        navigation.NavigateTo($"/AlbumDetails/{id}");
+       await AlbumId.InvokeAsync(id);
     }
 
     public async Task SetArtist(Artist artist)
     {
-        Artist = artist;      
+        Artist = artist;
     }
 
 }

@@ -34,4 +34,12 @@ else
     public IEnumerable<Artist> Artists { get; set; }
     [Parameter]
     public EventCallback<Artist> OnDetails { get; set; }
+
+    [Parameter]
+    public EventCallback<Guid> ShowAlbumDetails { get; set; }
+
+    public async Task ShowalbumDetails(Guid id)
+    {
+        await ShowAlbumDetails.InvokeAsync(id);
+    }
 }

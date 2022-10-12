@@ -10,9 +10,15 @@
                     OnDetails="ShowDetails">
         </ArtistList>
     }
+    else if (albumIdIsSet) { 
+        <AlbumDetails AlbumId="albumId">
+
+        </AlbumDetails>
+    }
     else
     {
-        <ArtistDetails Artist="currentArtist"></ArtistDetails>
+        <ArtistDetails Artist="currentArtist"
+                       AlbumId="SetAlbumId"></ArtistDetails>
     }
 
 }
@@ -33,6 +39,8 @@ else
     public IEnumerable<Artist> Artists { get; set; }
     public string error { get; set; }
     private Artist currentArtist;
+    private Guid albumId;
+    private bool albumIdIsSet;
 
 
 
@@ -46,12 +54,19 @@ else
 
         var result = await ArtistService.GetAllAsync();
         if (result.IsSucces) Artists = result.Items;
-        else error = result.Error;       
+        else error = result.Error;
 
     }
 
     public void ShowDetails(Artist artist)
     {
         this.currentArtist = artist;
+    }
+
+    public async Task SetAlbumId(Guid id)
+    {
+        albumId = id;
+        albumIdIsSet = true;
+
     }
 }
