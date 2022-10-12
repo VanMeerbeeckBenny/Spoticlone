@@ -66,10 +66,10 @@ a, .btn-link {
     }
 
 figure.basic-artist, img {
-    max-height: 250px;
-    max-width: 250px;
-    min-height: 250px;
-    min-width: 250px;
+    max-height: 150px;
+    max-width: 150px;
+    min-height: 150px;
+    min-width: 150px;
     border-radius: 25px;
 }
 
@@ -93,7 +93,7 @@ figure.basic-artist, img {
 }
 
 .title{
-    font-size:5em;
+    font-size:3em;
 }
 
 header{
@@ -111,4 +111,7 @@ header{
 
 .track{
     width:200px;
+}
+.modal {
+    color: black;
 }
