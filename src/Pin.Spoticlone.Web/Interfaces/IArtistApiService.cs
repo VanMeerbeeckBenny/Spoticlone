@@ -2,7 +2,8 @@
 
 namespace Pin.Spoticlone.Web.Interfaces
 {
-    public interface IGenreService : ICRUDService<Genre>
+    public interface IArtistApiService
     {
+        Task<ItemResultModel<Artist>> GetAllAsync();
     }
 }

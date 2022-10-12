@@ -2,7 +2,7 @@
 
 namespace Pin.Spoticlone.Web.Interfaces
 {
-    public interface IArtistService: ICRUDService<Artist>
+    public interface IGenreApiService
     {
     }
 }

@@ -5,7 +5,7 @@ using System.Net.Http;
 
 namespace Pin.Spoticlone.Web.Services
 {
-    public class AlbumApiService : IAlbumService
+    public class AlbumApiService : IAlbumApiService
     {
         private string baseUrl = "https://localhost:44319/api/Genres";
         private HttpClient _httpClient;
@@ -25,25 +25,23 @@ namespace Pin.Spoticlone.Web.Services
             throw new NotImplementedException();
         }
 
-        public async Task<ItemResultModel<Album>> GetAlbumsByArtistIdAsync(string artistId)
+        public async Task<ItemResultModel<Album>> GetAlbumsByArtistIdAsync(Guid artistId)
         {
             try
             {
-                var albums = await _httpClient.GetFromJsonAsync<AlbumRequestDto>($"{_httpClient.BaseAddress}/{artistId}");
+                var albums = await _httpClient.GetFromJsonAsync<ArtistWithAlbumsResponseDto>($"https://localhost:44319/api/Artists/{artistId}/albums");
                 return new ItemResultModel<Album>
                 {
                     IsSucces = true,
-                    Items = new List<Album>
+                    Items = albums.Albums.Select(a => new Album
                     {
-                        new Album
-                        {
-                            Id = albums.Id,
-                            Name = albums.Name,
-                            ReleaseDate = albums.ReleaseDate,
-                            Image = albums.Image
-                        }
-                    }
-                };
+                        Id = a.Id,
+                        Name = a.Name,
+                        ReleaseDate = a.ReleaseDate,
+                        Image = a.Image
+                    }).ToList(),
+                };             
+                
             }
             catch (Exception)
             {

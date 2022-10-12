@@ -3,7 +3,7 @@ using Pin.Spoticlone.Web.Models;
 
 namespace Pin.Spoticlone.Web.Services
 {
-    public class GenreApiService : IGenreService
+    public class GenreApiService : IGenreApiService
     {
         private string baseUrl = "https://localhost:44319/api/Genres";
         HttpClient _httpClient = null;
@@ -18,25 +18,6 @@ namespace Pin.Spoticlone.Web.Services
         {
             throw new NotImplementedException();
         }
-
-        public Task Delete(string id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<ItemResultModel<Genre>> GetAllAsync()
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<ItemResultModel<Genre>> GetById(string id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task Update(ItemResultModel<Genre> item)
-        {
-            throw new NotImplementedException();
-        }
+     
     }
 }
