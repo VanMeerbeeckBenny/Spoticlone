@@ -1,4 +1,5 @@
 ﻿@inject IArtistApiService _artistApiService
+@inject NavigationManager navigation
 <header class="d-flex flex-column border-bottom">
     <div class="d-flex">
         <div class="w-75 text-center d-flex justify-content-center align-items-center">
@@ -65,7 +66,7 @@
 
     public async Task ShowalbumDetails(Guid id)
     {
-
+        navigation.NavigateTo($"/AlbumDetails/{id}");
     }
 
     public async Task SetArtist(Artist artist)
