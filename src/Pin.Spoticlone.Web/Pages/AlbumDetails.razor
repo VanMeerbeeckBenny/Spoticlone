@@ -18,37 +18,10 @@
 
         </header>
 
-        <div class="mb-5">
-            <table class="table table-dark table-hover opacity-75 table-striped">
-                <thead>
-                    <tr>
-                        <th></th>
-                        <th>Title</th>
-                        <th>Duration</th>
-                        <th>explicit</th>
-                        <th>Disc nr</th>
-                        <th>Operations</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var track in Album.Tracks)
-                    {
-                    <tr>
-
-                        <td>@track.TrackNumber</td>
-                        <td>@track.Title</td>
-                        <td>@track.Duration</td>
-                        <td>@track.Explicit</td>
-                        <td>@track.DiscNumber</td>
-                        <td class="track">
-                            <button class="btn btn-danger">Delete</button>
-                            <button class="btn btn-warning">Update</button>
-                        </td>
-                    </tr>
-                }
-                    </tbody>
-                </table>
-            </div>
+        <TrackList Tracks="Album.Tracks"
+                   OnDelete="DeleteTrack"
+                   OnUpdate="UpdateTrack">
+        </TrackList>
             <AlbumList ArtistId="Album.Album.ArtistId"
                        OnShowAlbumDetails="ShowDetails">
                 </AlbumList>
@@ -90,5 +63,15 @@ else
     public async Task ShowDetails(Guid id)
     {
         navigation.NavigateTo($"/AlbumDetails/{id}");        
+    }
+
+    public async Task UpdateTrack(Track track)
+    {
+            
+    }
+
+    public async Task DeleteTrack(Guid trackId)
+    {
+
     }
 }

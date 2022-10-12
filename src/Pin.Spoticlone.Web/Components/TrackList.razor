@@ -1,0 +1,68 @@
+﻿@inject IJSRuntime JSRuntime
+
+<div class="mb-5">
+    <table class="table table-dark table-hover opacity-75 table-striped">
+        <thead>
+            <tr>
+                <th></th>
+                <th>Title</th>
+                <th>Duration</th>
+                <th>explicit</th>
+                <th>Disc nr</th>
+                <th>Operations</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var track in Tracks)
+            {
+                <tr>
+
+                    <td>@track.TrackNumber</td>
+                    <td>@track.Title</td>
+                    <td>@track.Duration</td>
+                    <td>@track.Explicit</td>
+                    <td>@track.DiscNumber</td>
+                    <td class="track">
+                        <button class="btn btn-danger" @onclick="e => OnShowDeleteModal(track)">Delete</button>
+                        <button class="btn btn-warning" @onclick="e=> OnUpdate.InvokeAsync(track)">Update</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<div class="modal" id="deletecategorymodal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Delete Category</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                Do you want to delete this category?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" @onclick="e => OnDelete.InvokeAsync(currentTrack.Id)">Yes</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+@code {
+    private Track currentTrack;
+    [Parameter]
+    public IEnumerable<Track> Tracks { get; set; }
+    [Parameter]
+    public EventCallback<Guid> OnDelete { get; set; }
+    [Parameter]
+    public EventCallback<Track> OnUpdate { get; set; }
+
+    private async Task OnShowDeleteModal(Track track)
+    {
+        currentTrack = track;
+        await JSRuntime.InvokeVoidAsync("showConfirmDelete", "deletecategorymodal");
+    }
+}
