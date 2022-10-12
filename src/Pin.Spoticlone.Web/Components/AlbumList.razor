@@ -1,0 +1,52 @@
+﻿@inject IAlbumApiService _albumService;
+
+@if (string.IsNullOrWhiteSpace(error))
+{
+    @if (albums != null)
+    {
+        <div class="d-flex justify-content-start flex-wrap">
+            @foreach (var album in albums)
+            {
+                <div class="card artist-card mb-5 me-5" @onclick="e=>OnShowAlbumDetails.InvokeAsync(album.Id)">
+                    <div class="card-body d-flex justify-content-center">
+
+                        <img src="@album.Image" title="@album.Name" alt="@album.Name" />
+
+                    </div>
+                    <div class="card-footer">
+                        <p>Artist: <span>@album.Name</span></p>
+                        <p>Release Date: <span>@album.ReleaseDate</span></p>
+
+                    </div>
+                </div>
+            }
+        </div>
+
+    }
+
+
+}
+else
+{
+    <div class="alert alert-danger" role="alert">
+        @error
+    </div>
+}
+
+@code {
+    private IEnumerable<Album> albums;
+    private string error;
+
+    [Parameter]
+    public Guid ArtistId { get; set; }
+    [Parameter]
+    public EventCallback<Guid> OnShowAlbumDetails { get; set; }
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        var result = await _albumService.GetAlbumsByArtistIdAsync(ArtistId);
+        if (result.IsSucces) albums = result.Items;
+        else error = "Something went wrong";
+    }
+}
