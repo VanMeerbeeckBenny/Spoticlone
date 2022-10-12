@@ -3,7 +3,7 @@ using System;
 
 namespace Pin.Spoticlone.Web.ApiDtos
 {
-    public class AlbumRequestDto : DtoBase
+    public class AlbumResponseDto : DtoBase
     {
         public string Name { get; set; }
         public DateTime ReleaseDate { get; set; }
