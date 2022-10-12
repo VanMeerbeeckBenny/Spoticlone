@@ -1,4 +1,5 @@
-﻿<header class="d-flex border-bottom">
+﻿@inject IAlbumApiService _albumService;
+<header class="d-flex border-bottom">
     <div class="w-75 text-center d-flex justify-content-center align-items-center">
         <h1 class="title">@Artist.Name</h1>
     </div>    
@@ -6,24 +7,41 @@
         <img class="small-img" src="@Artist.Image" alt="@Artist.Name" title="@Artist.Name" />
     </figure>
 </header>
-<div >
+<div>
     <div class="mt-3">
         @foreach (var genre in Artist.Genres)
         {
             <span class="badge rounded-pill bg-secondary me-3 pe-4 ps-4 genre-badge">@genre.Name</span>
         }
     </div>
+
+    @if (Albums != null)
+    {
+        foreach (var album in Albums)
+        {
+            <div>
+                @album.Name
+            </div>
+        }
+
+    }
+
 </div>
 
 
 
 @code {
+    private string error;
 
     [Parameter]
     public Artist Artist { get; set; }
+    [Parameter]
+    public IEnumerable<Album> Albums { get; set; }
 
-    protected override Task OnInitializedAsync()
+    protected override async Task OnInitializedAsync()
     {
-        return base.OnInitializedAsync();
+        var result = await _albumService.GetAlbumsByArtistIdAsync(Artist.Id);
+        if (result.IsSucces) Albums = result.Items;
+        else error = "Something went wrong";
     }
 }
