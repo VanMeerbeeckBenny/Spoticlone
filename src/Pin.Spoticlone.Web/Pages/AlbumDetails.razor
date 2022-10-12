@@ -1,5 +1,6 @@
 ﻿@page "/AlbumDetails/{AlbumId:guid}"
-@inject IAlbumApiService _albumApiService;
+@inject IAlbumApiService _albumApiService
+@inject NavigationManager navigation
 
 @if (string.IsNullOrWhiteSpace(error))
 {
@@ -17,7 +18,7 @@
 
         </header>
 
-        <div>
+        <div class="mb-5">
             <table class="table table-dark table-hover opacity-75 table-striped">
                 <thead>
                     <tr>
@@ -48,6 +49,9 @@
                     </tbody>
                 </table>
             </div>
+            <AlbumList ArtistId="Album.Album.ArtistId"
+                       OnShowAlbumDetails="ShowDetails">
+                </AlbumList>
     }
     else
     {
@@ -71,7 +75,7 @@ else
     public AlbumWithTracks Album { get; set; }
 
 
-    protected override async Task OnInitializedAsync()
+    protected override async Task OnParametersSetAsync()
     {
         await Refresh();
     }
@@ -81,5 +85,10 @@ else
         var result = await _albumApiService.GetAlbumsWithTracksByIdAsync(AlbumId);
         if (result.IsSucces) Album = result.Items.FirstOrDefault();
         else error = result.Error;
+    }
+
+    public async Task ShowDetails(Guid id)
+    {
+        navigation.NavigateTo($"/AlbumDetails/{id}");        
     }
 }
