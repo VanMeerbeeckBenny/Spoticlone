@@ -32,7 +32,6 @@
         <h2 class="mb-5">Here are some artist you might like!!</h2>
         <ArtistList Artists="artistsByFirstGenre"
                     OnDetails="SetArtist">
-
         </ArtistList>
     }
     else
@@ -69,7 +68,7 @@
        await AlbumId.InvokeAsync(id);
     }
 
-    public async Task SetArtist(Artist artist)
+    public void SetArtist(Artist artist)
     {
         Artist = artist;
     }
