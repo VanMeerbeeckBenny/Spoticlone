@@ -1,0 +1,36 @@
+﻿<EditForm Model="@Track" OnValidSubmit="@(e => OnSave.InvokeAsync(Track))">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <div class="form-group mt-4">
+        <label for="name">Name: </label>
+        <InputText id="name" class="form-control"
+                   @bind-Value="Track.Title" />
+        <ValidationMessage For="(() => Track.Title)" />
+    </div>
+
+    <div class="form-group mt-4">
+        <label for="duration">Duration: </label>
+        <InputText id="duration" class="form-control"
+                   @bind-Value="Track.Duration" />
+        <ValidationMessage For="(() => Track.Duration)"/>
+    </div>
+
+    <div class="form-group mt-4 mb-4">
+        <label for="explicit">Explicit: </label>
+        <InputCheckbox id="explicit" class="form-check-input"
+                   @bind-Value="Track.Explicit" />
+    </div>
+
+    <button type="submit" class="btn btn-primary">Save</button>
+    <button type="button" class="btn btn-warning" @onclick="OnCancel">Cancel</button>
+</EditForm>
+
+@code {
+    [Parameter]
+    public Track Track { get; set; }
+    [Parameter]
+    public EventCallback<Track> OnSave { get; set; }
+    [Parameter]
+    public EventCallback OnCancel { get; set; }
+}
