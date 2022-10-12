@@ -5,6 +5,6 @@
         public string Name { get; set; }
         public DateTime ReleaseDate { get; set; }
         public Uri Image { get; set; }
-
+        public Guid ArtistId { get; set; }
     }
 }
