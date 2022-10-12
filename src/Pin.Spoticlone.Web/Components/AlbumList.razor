@@ -37,13 +37,14 @@ else
     private IEnumerable<Album> albums;
     private string error;
 
+
     [Parameter]
     public Guid ArtistId { get; set; }
     [Parameter]
     public EventCallback<Guid> OnShowAlbumDetails { get; set; }
 
-
-    protected override async Task OnInitializedAsync()
+  
+    protected override async Task OnParametersSetAsync()
     {
         var result = await _albumService.GetAlbumsByArtistIdAsync(ArtistId);
         if (result.IsSucces) albums = result.Items;
