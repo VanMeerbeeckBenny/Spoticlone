@@ -1,7 +1,9 @@
 @import url('open-iconic/font/css/open-iconic-bootstrap.min.css');
 
-html, body {
+html, body,.sidebar {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    background-color:black !important;
+    color:white;
 }
 
 h1:focus {
@@ -94,6 +96,15 @@ figure.basic-artist, img {
     font-size:5em;
 }
 
+header{
+    background-color:black;
+}
+
 .genre-badge{
     font-size:1.1em;
+}
+
+.card {
+    -webkit-box-shadow: 10px 11px 19px -6px white;
+    box-shadow: 10px 11px 19px -6px white;
 }
