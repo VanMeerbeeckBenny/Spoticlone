@@ -1,4 +1,5 @@
-﻿<header class="d-flex flex-column border-bottom">
+﻿@inject IArtistApiService _artistApiService
+<header class="d-flex flex-column border-bottom">
     <div class="d-flex">
         <div class="w-75 text-center d-flex justify-content-center align-items-center">
             <h1 class="title">@Artist.Name</h1>
@@ -18,26 +19,57 @@
         @foreach (var genre in Artist.Genres)
         {
             <span class="badge rounded-pill bg-secondary me-3 pe-4 ps-4 genre-badge">@genre.Name</span>
+
         }
     </div>
     <AlbumList ArtistId="Artist.Id"
                OnShowAlbumDetails="ShowalbumDetails">
 
     </AlbumList>
-   
+    @if (string.IsNullOrWhiteSpace(error))
+    {
+
+        <ArtistList Artists="artistsByFirstGenre"
+                    OnDetails="SetArtist">
+
+        </ArtistList>
+    }
+    else
+    {
+        <div class="spinner-border text-primary" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    }
 
 </div>
 
 
 
 @code {
-   
+
+    private IEnumerable<Artist> artistsByFirstGenre;
+    private string error;
     [Parameter]
     public Artist Artist { get; set; }
-   
+
+    protected override async Task OnInitializedAsync()
+    {
+        Guid GenreId = Artist.Genres.FirstOrDefault().Id;
+        var result = await _artistApiService.GetByGenrdeIdAsync(GenreId);
+        if (result.IsSucces) artistsByFirstGenre = result.Items;
+        else error = result.Error;
+       
+    }
+
+
     public async Task ShowalbumDetails(Guid id)
-        {
-            
-        }
-   
+    {
+
+    }
+
+    public async Task SetArtist(Artist artist)
+    {
+        Artist = artist;
+    }
+
 }
