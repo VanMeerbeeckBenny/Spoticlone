@@ -2,7 +2,7 @@
 @inject IArtistApiService ArtistService;
 
 
-@if (Error == null)
+@if (error == null)
 {
     @if (Artists != null)
     {
@@ -31,7 +31,7 @@
 else
 {
     <div class="alert alert-danger" role="alert">
-        @Error
+        @error
     </div>
 }
 
@@ -43,7 +43,7 @@ else
 @code{
 
     public IEnumerable<Artist> Artists { get; set; }
-    public string Error { get; set; }
+    public string error { get; set; }
     private Artist currentArtist;
 
 
@@ -58,7 +58,7 @@ else
 
         var result = await ArtistService.GetAllAsync();
         if (result.IsSucces) Artists = result.Items;
-        else Error = result.Error;
+        else error = result.Error;
 
     }
 
