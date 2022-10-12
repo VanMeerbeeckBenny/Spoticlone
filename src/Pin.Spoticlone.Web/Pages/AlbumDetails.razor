@@ -1,0 +1,85 @@
+﻿@page "/AlbumDetails/{AlbumId:guid}"
+@inject IAlbumApiService _albumApiService;
+
+@if (string.IsNullOrWhiteSpace(error))
+{
+    if (Album != null)
+    {
+        <header class="d-flex flex-column border-bottom mb-5">
+            <div class="d-flex">
+                <div class="w-75 text-center d-flex justify-content-center align-items-center">
+                    <h1 class="title">@Album.Album.Name</h1>
+                </div>
+                <figure class="small-img">
+                    <img class="small-img" src="@Album.Album.Image" alt="@Album.Album.Name" title="@Album.Album.Name" />
+                </figure>
+            </div>  
+
+        </header>
+
+        <div>
+            <table class="table table-dark table-hover opacity-75 table-striped">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Title</th>
+                        <th>Duration</th>
+                        <th>explicit</th>
+                        <th>Disc nr</th>
+                        <th>Operations</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var track in Album.Tracks)
+                    {
+                    <tr>
+
+                        <td>@track.TrackNumber</td>
+                        <td>@track.Title</td>
+                        <td>@track.Duration</td>
+                        <td>@track.Explicit</td>
+                        <td>@track.DiscNumber</td>
+                        <td class="track">
+                            <button class="btn btn-danger">Delete</button>
+                            <button class="btn btn-warning">Update</button>
+                        </td>
+                    </tr>
+                }
+                    </tbody>
+                </table>
+            </div>
+    }
+    else
+    {
+        <div class="spinner-border text-primary" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    }
+}
+else
+{
+    <div class="alert alert-danger" role="alert">
+        @error
+    </div>
+}
+
+@code {
+    private string error;
+    [Parameter]
+    public Guid AlbumId { get; set; }
+    [Parameter]
+    public AlbumWithTracks Album { get; set; }
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        await Refresh();
+    }
+
+    public async Task Refresh()
+    {
+        var result = await _albumApiService.GetAlbumsWithTracksByIdAsync(AlbumId);
+        if (result.IsSucces) Album = result.Items.FirstOrDefault();
+        else error = result.Error;
+    }
+}
