@@ -7,7 +7,7 @@ namespace Pin.Spoticlone.Web.Services
 {
     public class AlbumApiService : IAlbumApiService
     {
-        private string baseUrl = "https://localhost:44319/api/Genres";
+        private string baseUrl = "https://localhost:44319/api/Albums";
         private HttpClient _httpClient;
 
         public AlbumApiService()
@@ -53,19 +53,51 @@ namespace Pin.Spoticlone.Web.Services
             }
         }
 
-        public Task<ItemResultModel<Album>> GetAllAsync()
+        public async Task<ItemResultModel<AlbumWithTracks>> GetAlbumsWithTracksByIdAsync(Guid albumId)
         {
-            throw new NotImplementedException();
-        }
+            try
+            {
+                var albumWithTracks = await _httpClient.GetFromJsonAsync<AlbumWithTracksResponseDto>($"{_httpClient.BaseAddress}/{albumId}/tracks");
+                return new ItemResultModel<AlbumWithTracks>
+                {
+                    IsSucces = true,
+                    Items = new List<AlbumWithTracks>
+                    {
+                        new AlbumWithTracks{ 
+                            Album = new Album
+                            {
+                                Id= albumWithTracks.Album.Id,
+                                Image = albumWithTracks.Album.Image,
+                                Name = albumWithTracks.Album.Name,
+                                ReleaseDate = albumWithTracks.Album.ReleaseDate,
+                            },
+                            Tracks = albumWithTracks.Tracks.Select(t => new Track
+                            {
+                                Id = t.Id,
+                                AlbumId = t.AlbumId,
+                                DiscNumber = t.DiscNumber,
+                                Explicit = t.Explicit,
+                                Duration = t.Duration,
+                                Title = t.Title,
+                                TrackNumber = t.TrackNumber
 
-        public async Task<ItemResultModel<Album>> GetById(string id)
-        {
-            throw new NotImplementedException();
-        }
+                            })
+                            .OrderBy(t => t.DiscNumber)
+                            .ThenBy(t => t.TrackNumber)
+                            .ToList()
+                    }
+                   }
+                };
 
-        public Task Update(ItemResultModel<Album> item)
-        {
-            throw new NotImplementedException();
+            }
+            catch (Exception)
+            {
+
+                return new ItemResultModel<AlbumWithTracks>
+                {
+                    Error = "Something went wrong!"
+                };
+            }
         }
     }
 }
