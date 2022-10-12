@@ -1,0 +1,74 @@
+﻿@inject IAlbumApiService _albumApiService
+
+@if (string.IsNullOrWhiteSpace(error))
+{
+    if (album != null)
+    {
+        <header class="d-flex flex-column border-bottom mb-5">
+            <div class="d-flex">
+                <div class="w-75 text-center d-flex justify-content-center align-items-center">
+                    <h1 class="title">@album.Album.Name</h1>
+                </div>
+                <figure class="small-img">
+                    <img class="small-img" src="@album.Album.Image" alt="@album.Album.Name" title="@album.Album.Name" />
+                </figure>
+            </div>
+
+        </header>
+
+        <TrackList Tracks="album.Tracks"
+                   OnDelete="DeleteTrack"
+                   OnUpdate="UpdateTrack">
+        </TrackList>
+        <AlbumList ArtistId="album.Album.ArtistId"
+                   >
+        </AlbumList>
+    }
+    else
+    {
+        <div class="spinner-border text-primary" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    }
+}
+else
+{
+    <div class="alert alert-danger" role="alert">
+        @error
+    </div>
+}
+
+@code {
+    private string error;
+    [Parameter]
+    public Guid AlbumId { get; set; }
+    private AlbumWithTracks album;  
+
+
+    protected override async Task OnParametersSetAsync()
+    {
+        await Refresh();
+    }
+
+    public async Task Refresh()
+    {
+        var result = await _albumApiService.GetAlbumsWithTracksByIdAsync(AlbumId);
+        if (result.IsSucces) album = result.Items.FirstOrDefault();
+        else error = result.Error;
+    }
+
+    public async Task ShowDetails(Guid id)
+    {
+        AlbumId = id;
+    }
+
+    public async Task UpdateTrack(Track track)
+    {
+
+    }
+
+    public async Task DeleteTrack(Guid trackId)
+    {
+
+    }
+}

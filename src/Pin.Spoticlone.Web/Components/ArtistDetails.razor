@@ -24,7 +24,7 @@
         }
     </div>
     <AlbumList ArtistId="Artist.Id"
-               OnShowAlbumDetails="ShowalbumDetails">
+               OnShowAlbumDetails="OnShowAlbumDetails">
 
     </AlbumList>
     @if (string.IsNullOrWhiteSpace(error))
@@ -49,6 +49,8 @@
 @code {
 
     private IEnumerable<Artist> artistsByFirstGenre;
+    [Parameter]
+    public EventCallback<Guid> AlbumId { get; set; }
     private string error;
     [Parameter]
     public Artist Artist { get; set; }
@@ -62,16 +64,16 @@
 
     }
 
-    
 
-    public async Task ShowalbumDetails(Guid id)
+
+    public async Task OnShowAlbumDetails(Guid id)
     {
-        navigation.NavigateTo($"/AlbumDetails/{id}");
+        await AlbumId.InvokeAsync(id);
     }
 
     public async Task SetArtist(Artist artist)
     {
-        Artist = artist;      
+        Artist = artist;
     }
 
 }
