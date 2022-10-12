@@ -4,25 +4,25 @@
 
 @if (string.IsNullOrWhiteSpace(error))
 {
-    if (Album != null)
+    if (album != null)
     {
         <header class="d-flex flex-column border-bottom mb-5">
             <div class="d-flex">
                 <div class="w-75 text-center d-flex justify-content-center align-items-center">
-                    <h1 class="title">@Album.Album.Name</h1>
+                    <h1 class="title">@album.Album.Name</h1>
                 </div>
                 <figure class="small-img">
-                    <img class="small-img" src="@Album.Album.Image" alt="@Album.Album.Name" title="@Album.Album.Name" />
+                    <img class="small-img" src="@album.Album.Image" alt="@album.Album.Name" title="@album.Album.Name" />
                 </figure>
             </div>  
 
         </header>
 
-        <TrackList Tracks="Album.Tracks"
+        <TrackList Tracks="album.Tracks"
                    OnDelete="DeleteTrack"
                    OnUpdate="UpdateTrack">
         </TrackList>
-            <AlbumList ArtistId="Album.Album.ArtistId"
+            <AlbumList ArtistId="album.Album.ArtistId"
                        OnShowAlbumDetails="ShowDetails">
                 </AlbumList>
     }
@@ -43,9 +43,8 @@ else
 @code {
     private string error;
     [Parameter]
-    public Guid AlbumId { get; set; }
-    [Parameter]
-    public AlbumWithTracks Album { get; set; }
+    public Guid AlbumId{ get; set; }    
+    private AlbumWithTracks album;
 
 
     protected override async Task OnParametersSetAsync()
@@ -56,18 +55,18 @@ else
     public async Task Refresh()
     {
         var result = await _albumApiService.GetAlbumsWithTracksByIdAsync(AlbumId);
-        if (result.IsSucces) Album = result.Items.FirstOrDefault();
+        if (result.IsSucces) album = result.Items.FirstOrDefault();
         else error = result.Error;
     }
 
     public async Task ShowDetails(Guid id)
     {
-        navigation.NavigateTo($"/AlbumDetails/{id}");        
+        navigation.NavigateTo($"/AlbumDetails/{id}");
     }
 
     public async Task UpdateTrack(Track track)
     {
-            
+
     }
 
     public async Task DeleteTrack(Guid trackId)
