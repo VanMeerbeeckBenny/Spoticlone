@@ -1,28 +1,39 @@
-﻿<h3 class="mb-5">ArtistList</h3>
+﻿
+@if (Artists != null)
+{
 
-<div class="d-flex justify-content-between flex-wrap">
-    @foreach (var artist in Artists)
-    {
-        <div class="card artist-card mb-5" @onclick="e => OnDetails.InvokeAsync(artist)">
-            <div class="card-body">
+    <h3 class="mb-5">ArtistList</h3>
 
-                <img src="@artist.Image" title="@artist.Name" alt="@artist.Name" />
+    <div class="d-flex flex-wrap">
+        @foreach (var artist in Artists)
+        {
+            <div class="card artist-card mb-5 me-5" @onclick="e => OnDetails.InvokeAsync(artist)">
+                <div class="card-body">
 
+                    <img src="@artist.Image" title="@artist.Name" alt="@artist.Name" />
+
+                </div>
+                <div class="card-footer">
+                    <p>Artist: <span>@artist.Name</span></p>
+                    <p>Albums count: <span class="red">@artist.AlbumsCount</span></p>
+
+                </div>
             </div>
-            <div class="card-footer">
-                <p>Artist: <span>@artist.Name</span></p>
-                <p>Albums count: <span class="red">@artist.AlbumsCount</span></p>
+        }
+    </div>
+}
+else
+{
+    <div class="spinner-border text-primary" role="status">
+        <span class="sr-only">Loading...</span>
+    </div>
+}
 
-            </div>
-        </div>
-    }
- </div>
 
+@code {
 
-    @code {     
-
-        [Parameter]
-        public IEnumerable<Artist> Artists { get; set; }
-        [Parameter]
-        public EventCallback<Artist> OnDetails { get; set; }
-    }
+    [Parameter]
+    public IEnumerable<Artist> Artists { get; set; }
+    [Parameter]
+    public EventCallback<Artist> OnDetails { get; set; }
+}
