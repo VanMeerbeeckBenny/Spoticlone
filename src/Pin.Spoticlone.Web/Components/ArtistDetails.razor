@@ -28,7 +28,7 @@
     </AlbumList>
     @if (string.IsNullOrWhiteSpace(error))
     {
-
+        <h2 class="mb-5">Here are some artist you might like!!</h2>
         <ArtistList Artists="artistsByFirstGenre"
                     OnDetails="SetArtist">
 
@@ -58,9 +58,10 @@
         var result = await _artistApiService.GetByGenrdeIdAsync(GenreId);
         if (result.IsSucces) artistsByFirstGenre = result.Items;
         else error = result.Error;
-       
+
     }
 
+    
 
     public async Task ShowalbumDetails(Guid id)
     {
@@ -69,7 +70,7 @@
 
     public async Task SetArtist(Artist artist)
     {
-        Artist = artist;
+        Artist = artist;      
     }
 
 }
