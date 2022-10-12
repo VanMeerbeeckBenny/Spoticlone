@@ -1,14 +1,21 @@
 ﻿@inject IAlbumApiService _albumService;
-<header class="d-flex border-bottom">
-    <div class="w-75 text-center d-flex justify-content-center align-items-center">
-        <h1 class="title">@Artist.Name</h1>
-    </div>    
-    <figure class="small-img">
-        <img class="small-img" src="@Artist.Image" alt="@Artist.Name" title="@Artist.Name" />
-    </figure>
+<header class="d-flex flex-column border-bottom">
+    <div class="d-flex">
+        <div class="w-75 text-center d-flex justify-content-center align-items-center">
+            <h1 class="title">@Artist.Name</h1>
+        </div>
+        <figure class="small-img">
+            <img class="small-img" src="@Artist.Image" alt="@Artist.Name" title="@Artist.Name" />
+        </figure>
+    </div>
+    <div class="d-flex">
+        <div class="me-5">Followers: <span class="red">@Artist.Followers</span></div>
+        <div class="me-5">Popularity: <span class="red">@Artist.Popularity</span></div>
+    </div>
+   
 </header>
 <div>
-    <div class="mt-3">
+    <div class="mt-3 mb-3">
         @foreach (var genre in Artist.Genres)
         {
             <span class="badge rounded-pill bg-secondary me-3 pe-4 ps-4 genre-badge">@genre.Name</span>
@@ -17,16 +24,27 @@
 
     @if (Albums != null)
     {
-        foreach (var album in Albums)
-        {
-            <div>
-                @album.Name
+        <div class="d-flex justify-content-start flex-wrap">
+            @foreach (var album in Albums)
+            {
+            <div class="card artist-card mb-5 me-5">
+                <div class="card-body d-flex justify-content-center">
+
+                    <img src="@album.Image" title="@album.Name" alt="@album.Name" />
+
+                </div>
+                <div class="card-footer">
+                    <p>Artist: <span>@album.Name</span></p>
+                    <p>Release Date: <span>@album.ReleaseDate</span></p>
+
+                </div>
             </div>
-        }
+            }
+        </div>
 
-    }
+     }
 
-</div>
+        </div>
 
 
 
