@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 
-namespace Pin.Spoticlone.Core.ApiDtos
+namespace Pin.Spoticlone.Web.ApiDtos
 {
     public class GenreResponseDto : DtoBase
     {

@@ -1,6 +1,4 @@
-﻿using Pin.Spoticlone.Core.ApiDtos;
-
-namespace Pin.Spoticlone.Web.ApiDtos
+﻿namespace Pin.Spoticlone.Web.ApiDtos
 {
     public class ArtistResponseDto : DtoBase
     {
