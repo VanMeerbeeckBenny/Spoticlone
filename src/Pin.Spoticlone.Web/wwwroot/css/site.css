@@ -105,6 +105,6 @@ header{
 }
 
 .card {
-    -webkit-box-shadow: 10px 11px 19px -6px white;
-    box-shadow: 10px 11px 19px -6px white;
+    -webkit-box-shadow: -2px -2px 19px 0px rgba(246, 242, 242, 0.38);
+    box-shadow: -2px -2px 19px 0px rgba(246, 242, 242, 0.38);
 }
