@@ -2,6 +2,7 @@
 @inject IAlbumApiService _albumApiService
 @inject ITrackApiService _trackApiService
 @inject NavigationManager navigation
+@inject IJSRuntime JSRuntime
 
 @if (string.IsNullOrWhiteSpace(error))
 {
@@ -60,7 +61,7 @@ else
     private AlbumWithTracks album;
     [Parameter]
     public Guid AlbumId { get; set; }
-
+        
 
     protected override async Task OnParametersSetAsync()
     {
@@ -89,11 +90,15 @@ else
         var track = new Track();
         track.AlbumId = AlbumId;
         currentTrack = track;
-        InvokeAsync(StateHasChanged);
+
     }
 
     public async Task DeleteTrack(Guid trackId)
     {
+        var result = await _trackApiService.DeleteAsync(trackId);
+        if (!result.IsSucces) error = result.Error;
+        await JSRuntime.InvokeVoidAsync("hideConfirmDelete", "deletecategorymodal");
+        await Refresh();
 
     }
     public async Task SaveTrack(Track track)
@@ -124,7 +129,11 @@ else
             );
         }
 
-        if (result.IsSucces) Refresh();
+        if (result.IsSucces)
+        {
+            await Refresh();
+            currentTrack = null;
+        }
         else error = result.Error;
     }
 }
