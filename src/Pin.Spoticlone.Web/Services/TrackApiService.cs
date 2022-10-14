@@ -62,7 +62,14 @@ namespace Pin.Spoticlone.Web.Services
                     TrackNumber = trackNumber,
                 };
 
-                await _httpClient.PutAsJsonAsync(_httpClient.BaseAddress.ToString(), trackToAdd);
+                var httpResult = await _httpClient.PutAsJsonAsync(_httpClient.BaseAddress.ToString(), trackToAdd);
+                if (httpResult.StatusCode != HttpStatusCode.OK)
+                {
+                    return new ItemResultModel<Track>
+                    {
+                        Error = await httpResult.Content.ReadAsStringAsync(),
+                    };
+                }
                 return new ItemResultModel<Track> { IsSucces = true };
             }
             catch (Exception)
@@ -101,7 +108,7 @@ namespace Pin.Spoticlone.Web.Services
         {
             try
             {               
-                var trackDto  = await _httpClient.GetFromJsonAsync<TrackResponseDto>($"{_httpClient.BaseAddress}/id");
+                var trackDto  = await _httpClient.GetFromJsonAsync<TrackResponseDto>($"{_httpClient.BaseAddress}/{id}");
                 return new ItemResultModel<Track>
                 {
                     Items = new List<Track>
