@@ -24,7 +24,7 @@ namespace Pin.Spoticlone.Web.Services
                 {
                     Id = Guid.NewGuid(),
                     Name = title,
-                    DurationMs = 0,
+                    DurationMs = ((int)TimeSpan.Parse($"00:{duration}").TotalMilliseconds),
                     Explicit = isExplicit,
                     DiscNumber = discNumber,
                     AlbumId = albumId,
@@ -55,7 +55,7 @@ namespace Pin.Spoticlone.Web.Services
                 {       
                     Id = id,
                     Name = title,
-                    DurationMs = 0,
+                    DurationMs = ((int)TimeSpan.Parse($"00:{duration}").TotalMilliseconds),
                     Explicit = isExplicit,
                     DiscNumber = discNumber,
                     AlbumId = albumId,
