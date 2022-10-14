@@ -43,9 +43,49 @@ namespace Pin.Spoticlone.Web.Services
             }
         }
 
-        public Task<ItemResultModel<Track>> DeleteAsync(Guid id)
+        public async Task<ItemResultModel<Track>> UpdateAsync(string title, string duration, bool isExplicit, int trackNumber, int discNumber,Guid id, Guid albumId)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var result = await GetTrackById(id);
+                if (!result.IsSucces) return new ItemResultModel<Track> { Error = result.Error };
+                
+                var trackToAdd = new TrackRequestDto
+                {
+                    Id = Guid.NewGuid(),
+                    Name = title,
+                    DurationMs = 0,
+                    Explicit = isExplicit,
+                    DiscNumber = discNumber,
+                    AlbumId = albumId,
+                    TrackNumber = trackNumber,
+                };
+
+                await _httpClient.PutAsJsonAsync(_httpClient.BaseAddress.ToString(), trackToAdd);
+                return new ItemResultModel<Track> { IsSucces = true };
+            }
+            catch (Exception)
+            {
+
+                return new ItemResultModel<Track>
+                {
+                    Error = "Update failed!"
+                };
+            }
+        }
+
+        public async Task<ItemResultModel<Track>> DeleteAsync(Guid id)
+        {
+            try
+            {
+                await _httpClient.DeleteAsync($"{_httpClient.BaseAddress}/{id}");
+                return new ItemResultModel<Track> { IsSucces = true };
+            }
+            catch (Exception)
+            {
+
+                return new ItemResultModel<Track> { Error="Nothing is deleted!" };
+            }
         }
 
         public async Task<ItemResultModel<Track>> GetTrackById(Guid id)
@@ -81,10 +121,7 @@ namespace Pin.Spoticlone.Web.Services
             }
         }
 
-        public Task<ItemResultModel<Track>> UpdateAsync(string Title, string Duration, bool Explicit, int TrackNumber, int DiscNumber, Guid id, Guid albumId)
-        {
-            throw new NotImplementedException();
-        }
+    
 
 
     }
