@@ -1,5 +1,6 @@
 ﻿@page "/AlbumDetails/{AlbumId:guid}"
 @inject IAlbumApiService _albumApiService
+@inject ITrackApiService _trackApiService
 @inject NavigationManager navigation
 
 @if (string.IsNullOrWhiteSpace(error))
@@ -21,7 +22,8 @@
         {
             <TrackList Tracks="album.Tracks"
                        OnDelete="DeleteTrack"
-                       OnUpdate="UpdateTrack">
+                       OnUpdate="UpdateTrack"
+                       OnAdd="AddTrack">
             </TrackList>
             <AlbumList ArtistId="album.Album.ArtistId"
                        OnShowAlbumDetails="ShowDetails">
@@ -31,7 +33,7 @@
         {
             <TrackForm Track="currentTrack"
                        OnSave="SaveTrack"
-                       OnCancel="Cancel">
+                       OnCancel="Refresh">
 
             </TrackForm>
         }
@@ -60,7 +62,6 @@ else
     public Guid AlbumId { get; set; }
 
 
-
     protected override async Task OnParametersSetAsync()
     {
         await Refresh();
@@ -71,6 +72,7 @@ else
         var result = await _albumApiService.GetAlbumsWithTracksByIdAsync(AlbumId);
         if (result.IsSucces) album = result.Items.FirstOrDefault();
         else error = result.Error;
+        currentTrack = null;
     }
 
     public async Task ShowDetails(Guid id)
@@ -78,9 +80,16 @@ else
         navigation.NavigateTo($"/AlbumDetails/{id}");
     }
 
-    public async Task UpdateTrack(Track track)
+    public void UpdateTrack(Track track)
     {
         currentTrack = track;
+    }
+    public void AddTrack()
+    {
+        var track = new Track();
+        track.AlbumId = AlbumId;
+        currentTrack = track;
+        InvokeAsync(StateHasChanged);
     }
 
     public async Task DeleteTrack(Guid trackId)
@@ -89,11 +98,33 @@ else
     }
     public async Task SaveTrack(Track track)
     {
+        ItemResultModel<Track> result;
 
-    }
+        if (track.Id == Guid.Empty)
+        {
+            result = await _trackApiService.AddAsync(
+            track.Title,
+            track.Duration,
+            track.Explicit,
+            track.TrackNumber,
+            track.DiscNumber,
+            track.AlbumId
+            );
+        }
+        else
+        {
+            result = await _trackApiService.UpdateAsync(
+            track.Title,
+            track.Duration,
+            track.Explicit,
+            track.TrackNumber,
+            track.DiscNumber,
+            track.Id,
+            track.AlbumId
+            );
+        }
 
-    public void Cancel()
-    {
-        currentTrack = null;
+        if (result.IsSucces) Refresh();
+        else error = result.Error;
     }
 }
