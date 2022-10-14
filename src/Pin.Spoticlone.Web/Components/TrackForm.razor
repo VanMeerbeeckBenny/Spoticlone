@@ -6,13 +6,13 @@
             <label for="tracknr">Track number: </label>
             <InputNumber id="tracknr" class="form-control" min="1"
                          @bind-Value="Track.TrackNumber"/>
-            <ValidationMessage For="(() => Track.TrackNumber)"/>
+            <ValidationMessage For="@(() => Track.TrackNumber)"/>
         </div>
         <div class="form-group w-50">
             <label for="discnr">Disc number: </label>
             <InputNumber id="tracknr" class="form-control" min="1"
                          @bind-Value="Track.DiscNumber"/>
-            <ValidationMessage For="(() => Track.DiscNumber)"/>
+            <ValidationMessage For="@(() => Track.DiscNumber)"/>
         </div>
     </div>
 
@@ -20,7 +20,7 @@
         <label for="name">Name: </label>
         <InputText id="name" class="form-control"
                    @bind-Value="Track.Title" />
-        <ValidationMessage For="(() => Track.Title)" />
+        <ValidationMessage For="@(() => Track.Title)" />
     </div>
 
     <div class="form-group mt-4">
@@ -36,7 +36,7 @@
                    @bind-Value="Track.Explicit" />
     </div>
 
-    <button type="submit" class="btn btn-primary" @onclick="e => OnSave.InvokeAsync(Track)">Save</button>
+    <button type="submit" class="btn btn-primary" @onclick="Save">Save</button>
     <button type="button" class="btn btn-warning" @onclick="OnCancel">Cancel</button>
 </EditForm>
 
@@ -47,4 +47,22 @@
     public EventCallback<Track> OnSave { get; set; }
     [Parameter]
     public EventCallback OnCancel { get; set; }
+
+    //Ik moest dit manueel triggeren want
+    //bij het maken van een nieuwe track werd de DataAnnotation niet getriggerd
+
+    private EditContext editContext { get; set; }
+    protected override void OnInitialized()
+    {
+        editContext = new EditContext(new Track());
+        editContext.EnableDataAnnotationsValidation();
+        base.OnInitialized();
+    }
+    private void Save()
+    {
+        bool isValid = editContext.Validate();
+        if (isValid) OnSave.InvokeAsync(Track);
+    }
+
+
 }
