@@ -29,7 +29,9 @@
         }
         else
         {
-            <TrackForm Track="currentTrack">
+            <TrackForm Track="currentTrack"
+                       OnSave="SaveTrack"
+                       OnCancel="Cancel">
 
             </TrackForm>
         }
@@ -84,5 +86,14 @@ else
     public async Task DeleteTrack(Guid trackId)
     {
 
+    }
+    public async Task SaveTrack(Track track)
+    {
+
+    }
+
+    public void Cancel()
+    {
+        currentTrack = null;
     }
 }
