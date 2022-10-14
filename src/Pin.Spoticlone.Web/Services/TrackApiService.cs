@@ -52,8 +52,8 @@ namespace Pin.Spoticlone.Web.Services
                 if (!result.IsSucces) return new ItemResultModel<Track> { Error = result.Error };
                 
                 var trackToAdd = new TrackRequestDto
-                {
-                    Id = Guid.NewGuid(),
+                {       
+                    Id = id,
                     Name = title,
                     DurationMs = 0,
                     Explicit = isExplicit,
