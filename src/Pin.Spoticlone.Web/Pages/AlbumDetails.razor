@@ -61,7 +61,7 @@ else
     private AlbumWithTracks album;
     [Parameter]
     public Guid AlbumId { get; set; }
-        
+
 
     protected override async Task OnParametersSetAsync()
     {
@@ -88,6 +88,7 @@ else
     public void AddTrack()
     {
         var track = new Track();
+        track.Duration = "00:00";
         track.AlbumId = AlbumId;
         currentTrack = track;
 
