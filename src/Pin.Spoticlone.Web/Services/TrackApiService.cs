@@ -2,6 +2,7 @@
 using Pin.Spoticlone.Web.Interfaces;
 using Pin.Spoticlone.Web.Models;
 using System.ComponentModel.DataAnnotations;
+using System.Net;
 using System.Net.Http.Json;
 
 namespace Pin.Spoticlone.Web.Services
@@ -76,9 +77,17 @@ namespace Pin.Spoticlone.Web.Services
 
         public async Task<ItemResultModel<Track>> DeleteAsync(Guid id)
         {
+            string error;
             try
-            {
-                await _httpClient.DeleteAsync($"{_httpClient.BaseAddress}/{id}");
+            {                
+                var result = await _httpClient.DeleteAsync($"{_httpClient.BaseAddress}/{id}");
+                if (result.StatusCode != HttpStatusCode.OK) 
+                {
+                    return new ItemResultModel<Track>
+                    {
+                        Error = await result.Content.ReadAsStringAsync(),
+                    };
+                } 
                 return new ItemResultModel<Track> { IsSucces = true };
             }
             catch (Exception)
