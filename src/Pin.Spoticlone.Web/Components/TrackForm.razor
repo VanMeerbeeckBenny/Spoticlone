@@ -1,6 +1,20 @@
 ﻿<EditForm Model="@Track" OnValidSubmit="@(e => OnSave.InvokeAsync(Track))">
     <DataAnnotationsValidator />
     <ValidationSummary />
+    <div class="d-flex">
+        <div class="form-group w-50 me-5">
+            <label for="tracknr">Track number: </label>
+            <InputNumber id="tracknr" class="form-control" min="1"
+                         @bind-Value="Track.TrackNumber"/>
+            <ValidationMessage For="(() => Track.TrackNumber)"/>
+        </div>
+        <div class="form-group w-50">
+            <label for="discnr">Disc number: </label>
+            <InputNumber id="tracknr" class="form-control" min="1"
+                         @bind-Value="Track.DiscNumber"/>
+            <ValidationMessage For="(() => Track.DiscNumber)"/>
+        </div>
+    </div>
 
     <div class="form-group mt-4">
         <label for="name">Name: </label>
@@ -22,7 +36,7 @@
                    @bind-Value="Track.Explicit" />
     </div>
 
-    <button type="submit" class="btn btn-primary">Save</button>
+    <button type="submit" class="btn btn-primary" @onclick="e => OnSave.InvokeAsync(Track)">Save</button>
     <button type="button" class="btn btn-warning" @onclick="OnCancel">Cancel</button>
 </EditForm>
 
