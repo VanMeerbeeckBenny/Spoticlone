@@ -1,9 +1,7 @@
 ﻿namespace Pin.Spoticlone.Web.Models
 {
-    public class ItemResultModel<T>where T : BaseEntitie
-    {
-        public bool IsSucces { get; set; }
-        public string Error { get; set; }
+    public class ItemResultModel<T> : BaseResultModel where T : BaseEntitie
+    {     
         public IEnumerable<T> Items { get; set; }
     }
 }
