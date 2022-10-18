@@ -19,6 +19,7 @@ namespace Pin.Spoticlone.Web
             builder.Services.AddScoped<IAlbumApiService, AlbumApiService>();
             builder.Services.AddScoped<IGenreApiService, GenreApiService>();
             builder.Services.AddScoped<ITrackApiService, TrackApiService>();
+            builder.Services.AddScoped<IStatisticsApiService, StatisticsApiService>();
             builder.Services.AddScoped<HttpClient>();
 
             var app = builder.Build();
