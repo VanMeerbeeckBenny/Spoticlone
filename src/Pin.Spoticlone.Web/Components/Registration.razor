@@ -43,13 +43,13 @@
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
+        await Task.Delay(5000);
 
         //registration kan nagecheckt worden in database zodat het modal niet meer getoond wordt.
         if (!registration.IsRegistered)
         {
             if (!isClosed)
             {
-                await Task.Delay(5000);
                 await JSRuntime.InvokeVoidAsync("showConfirmDelete", "register-modal");
             }
         }
