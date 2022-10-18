@@ -1,0 +1,73 @@
+﻿@inject IJSRuntime JSRuntime
+
+    <div class="modal" id="register-modal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Register</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                @if (registration.IsRegistered)
+                {
+                    <div class="alert alert-success" role="alert">
+                        <p>Thank you for joining us!!</p>
+                    </div>
+                }
+                else
+                {<EditForm Model="@registration" OnValidSubmit="@(Save)">
+                        <div class="modal-body">
+                            <DataAnnotationsValidator />
+                            <div class="mb-3">
+                                <label for="exampleInputEmail1" class="form-label">Email address</label>
+                                <InputText @bind-Value="registration.Email" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" />
+                                <ValidationMessage For="@(() => registration.Email)" />
+                                <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" @onclick="Close">Close</button>
+                            <button type="submit" class="btn btn-primary">Register</button>
+                        </div>
+                    </EditForm>}
+
+            </div>
+        </div>
+    </div>
+
+
+@code {
+    private bool isClosed;
+    private RegistrationModel registration = new RegistrationModel();
+
+
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+
+        //registration kan nagecheckt worden in database zodat het modal niet meer getoond wordt.
+        if (!registration.IsRegistered)
+        {
+            if (!isClosed)
+            {
+                await Task.Delay(5000);
+                await JSRuntime.InvokeVoidAsync("showConfirmDelete", "register-modal");
+            }
+        }
+
+        await base.OnAfterRenderAsync(firstRender);
+    }
+
+    private async Task Close()
+    {
+        await JSRuntime.InvokeVoidAsync("hideConfirmDelete", "register-modal");
+        isClosed = true;
+    }
+
+    private async Task Save()
+    {
+        registration.IsRegistered = true;
+        await Task.Delay(3000);
+        await JSRuntime.InvokeVoidAsync("hideConfirmDelete", "register-modal");
+        isClosed = true;
+    }
+}
