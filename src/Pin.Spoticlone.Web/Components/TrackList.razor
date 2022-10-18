@@ -9,7 +9,10 @@
                 <th>Duration</th>
                 <th>explicit</th>
                 <th>Disc nr</th>
+                @if (ShowOperations)
+                {
                 <th>Operations</th>
+                }
             </tr>
         </thead>
         <tbody>
@@ -22,15 +25,21 @@
                     <td>@track.Duration</td>
                     <td>@track.Explicit</td>
                     <td>@track.DiscNumber</td>
+                    @if (ShowOperations)
+                    {
                     <td class="track">
                         <button class="btn btn-danger" @onclick="e => OnShowDeleteModal(track)">Delete</button>
-                        <button class="btn btn-warning" @onclick="e=> OnUpdate.InvokeAsync(track)">Update</button>
+                        <button class="btn btn-warning" @onclick="e => OnUpdate.InvokeAsync(track)">Update</button>
                     </td>
+                    }
                 </tr>
             }
         </tbody>
     </table>
+    @if (ShowOperations)
+    {
     <button class="btn btn-primary" @onclick="OnAdd">+Add</button>
+    }
 </div>
 <div class="modal" id="deletecategorymodal" tabindex="-1">
     <div class="modal-dialog">
@@ -54,6 +63,8 @@
 
 @code {
     private Track currentTrack;
+    [Parameter]
+    public bool ShowOperations { get; set; }
     [Parameter]
     public IEnumerable<Track> Tracks { get; set; }
     [Parameter]
