@@ -19,7 +19,7 @@ namespace Pin.Spoticlone.Web.Services
             
             try
             {
-                var statistics = await _httpClient.GetFromJsonAsync<StatisticsResponseDto>($"{_httpClient.BaseAddress}/{amount}");
+                var statistics = await _httpClient.GetFromJsonAsync<StatisticsResponseDto>($"{_httpClient.BaseAddress}?totalItems={amount}");
                 return new StatisticsResultModel
                 {
                     IsSucces = true,
@@ -50,7 +50,9 @@ namespace Pin.Spoticlone.Web.Services
                             Duration = a.Duration,
                             NumberOfDiscs = a.NumberOfDiscs,
                             NumberOfTracks = a.NumberOfTracks
-                        }).ToList(),
+                        })
+                        .Distinct()
+                        .ToList(),
                         TopArtistWithMostAlbums = statistics.TopArtistWithMostAlbums.Select(a => new Artist
                         {
                             Id = a.Id,
