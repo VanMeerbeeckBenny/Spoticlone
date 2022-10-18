@@ -14,7 +14,14 @@
                 <div class="card-footer">
                     <p>Artist: <span>@artist.Name</span></p>
                     <p>Albums count: <span class="red">@artist.AlbumsCount</span></p>
-
+                    @if (ShowPopularity)
+                    {
+                    <p>Popularity: <span class="red">@artist.Popularity</span></p>
+                    }
+                    @if (ShowFollowers)
+                    {
+                    <p>Followers: <span class="red">@artist.Followers</span></p>
+                    }
                 </div>
             </div>
         }
@@ -34,4 +41,8 @@ else
     public IEnumerable<Artist> Artists { get; set; }
     [Parameter]
     public EventCallback<Artist> OnDetails { get; set; }
+    [Parameter]
+    public bool ShowPopularity { get; set; }
+    [Parameter]
+    public bool ShowFollowers { get; set; }
 }
