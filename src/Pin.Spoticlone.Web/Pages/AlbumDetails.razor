@@ -17,6 +17,11 @@
                     <img class="small-img" src="@album.Album.Image" alt="@album.Album.Name" title="@album.Album.Name" />
                 </figure>
             </div>
+            <div class="d-flex">
+                <div class="me-5">Tracks count: <span class="red">@album.Album.NumberOfTracks</span></div>
+                <div class="me-5">Number of discs: <span class="red">@album.Album.NumberOfDiscs</span></div>
+                <div class="me-5">Total time: <span class="red">@album.Album.Duration</span></div>
+            </div>
 
         </header>
         if (currentTrack == null)

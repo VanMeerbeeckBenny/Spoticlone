@@ -39,7 +39,7 @@ namespace Pin.Spoticlone.Web.Services
                         Name = a.Name,
                         ReleaseDate = a.ReleaseDate,
                         Image = a.Image,
-                        ArtistId = a.ArtistId
+                        ArtistId = a.ArtistId,
                     }).ToList(),
                 };             
                 
@@ -71,7 +71,10 @@ namespace Pin.Spoticlone.Web.Services
                                 Image = albumWithTracks.Album.Image,
                                 Name = albumWithTracks.Album.Name,
                                 ReleaseDate = albumWithTracks.Album.ReleaseDate,
-                                ArtistId = albumWithTracks.Album.ArtistId
+                                ArtistId = albumWithTracks.Album.ArtistId,
+                                NumberOfDiscs = albumWithTracks.Album.NumberOfDiscs,
+                                NumberOfTracks = albumWithTracks.Album.NumberOfTracks,
+                                Duration = albumWithTracks.Album.Duration
                             },
                             Tracks = albumWithTracks.Tracks.Select(t => new Track
                             {
