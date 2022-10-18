@@ -115,3 +115,25 @@ header{
 .modal {
     color: black;
 }
+
+#register-modal .modal-dialog {
+    right: -50px;   
+    position: absolute;
+    background-color: gray !important;
+    bottom: 10px;
+    animation: swooshIn 1s ease-in forwards;
+    width: 25%;
+}
+
+@keyframes swooshIn {
+    from {
+       
+        right: -50px;
+        opacity: 0;
+    }
+    to {
+        right: 50px;
+        opacity: 1;     
+    }
+
+}
