@@ -94,10 +94,18 @@ else
     public void AddTrack()
     {
         var track = new Track();
-        track.Duration = "00:00";
         track.AlbumId = AlbumId;
+        track.DiscNumber = album.Album.NumberOfDiscs;
+        track.TrackNumber = getMaxPosibleTrackNumberFromLastDisc();
         currentTrack = track;
 
+    }
+
+    private int getMaxPosibleTrackNumberFromLastDisc()
+    {
+        return album.Tracks
+            .Where(t => t.DiscNumber == album.Album.NumberOfDiscs)
+            .Max(t => t.TrackNumber) + 1;
     }
 
     public async Task DeleteTrack(Guid trackId)
