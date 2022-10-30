@@ -38,9 +38,9 @@ else
 @code {
 
     [Parameter]
-    public IEnumerable<Artist> Artists { get; set; }
+    public IEnumerable<ArtistModel> Artists { get; set; }
     [Parameter]
-    public EventCallback<Artist> OnDetails { get; set; }
+    public EventCallback<ArtistModel> OnDetails { get; set; }
     [Parameter]
     public bool ShowPopularity { get; set; }
     [Parameter]

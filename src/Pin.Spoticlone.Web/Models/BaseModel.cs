@@ -1,6 +1,6 @@
 ﻿namespace Pin.Spoticlone.Web.Models
 {
-    public class BaseEntitie
+    public class BaseModel
     {
         public Guid Id { get; set; }
     }

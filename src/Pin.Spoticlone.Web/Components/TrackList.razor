@@ -62,19 +62,19 @@
 
 
 @code {
-    private Track currentTrack;
+    private TrackModel currentTrack;
     [Parameter]
     public bool ShowOperations { get; set; }
     [Parameter]
-    public IEnumerable<Track> Tracks { get; set; }
+    public IEnumerable<TrackModel> Tracks { get; set; }
     [Parameter]
     public EventCallback<Guid> OnDelete { get; set; }
     [Parameter]
-    public EventCallback<Track> OnUpdate { get; set; }
+    public EventCallback<TrackModel> OnUpdate { get; set; }
     [Parameter]
     public EventCallback OnAdd { get; set; }
 
-    private async Task OnShowDeleteModal(Track track)
+    private async Task OnShowDeleteModal(TrackModel track)
     {
         currentTrack = track;
         await JSRuntime.InvokeVoidAsync("showConfirmDelete", "deletecategorymodal");

@@ -25,7 +25,7 @@ namespace Pin.Spoticlone.Web.Services
                     IsSucces = true,
                     statistics = new StatisticsModel
                     {
-                        TopFollowers = statistics.TopFollowers.Select(t => new Artist
+                        TopFollowers = statistics.TopFollowers.Select(t => new ArtistModel
                         {
                             Id = t.Id,
                             Name = t.Name,
@@ -33,14 +33,14 @@ namespace Pin.Spoticlone.Web.Services
                             Popularity = t.Popularity,
                             AlbumsCount = t.AlbumsCount,
                             Followers = t.Followers,
-                            Genres = t.Genres.Select(g => new Genre
+                            Genres = t.Genres.Select(g => new GenreModel
                             {
                                 Id = g.Id,
                                 Name = g.Name,
                             }).ToList(),
                             
                         }).ToList(),
-                        TopAlbumDurations =  statistics.TopAlbumDurations.Select(a => new Album
+                        TopAlbumDurations =  statistics.TopAlbumDurations.Select(a => new AlbumModel
                         {
                             Id = a.Id,
                             Name = a.Name,
@@ -53,7 +53,7 @@ namespace Pin.Spoticlone.Web.Services
                         })
                         .Distinct()
                         .ToList(),
-                        TopArtistWithMostAlbums = statistics.TopArtistWithMostAlbums.Select(a => new Artist
+                        TopArtistWithMostAlbums = statistics.TopArtistWithMostAlbums.Select(a => new ArtistModel
                         {
                             Id = a.Id,
                             Name = a.Name,
@@ -61,13 +61,13 @@ namespace Pin.Spoticlone.Web.Services
                             Popularity = a.Popularity,
                             AlbumsCount = a.AlbumsCount,
                             Followers = a.Followers,
-                            Genres = a.Genres.Select(g => new Genre
+                            Genres = a.Genres.Select(g => new GenreModel
                             {
                                 Id = g.Id,
                                 Name = g.Name,
                             }).ToList(),
                         }),
-                        TopPopularities = statistics.TopPopularities.Select(a => new Artist
+                        TopPopularities = statistics.TopPopularities.Select(a => new ArtistModel
                         {
                             Id = a.Id,
                             Name = a.Name,
@@ -75,13 +75,13 @@ namespace Pin.Spoticlone.Web.Services
                             Popularity = a.Popularity,
                             AlbumsCount = a.AlbumsCount,
                             Followers = a.Followers,
-                            Genres = a.Genres.Select(g => new Genre
+                            Genres = a.Genres.Select(g => new GenreModel
                             {
                                 Id = g.Id,
                                 Name = g.Name,
                             }).ToList(),
                         }),
-                        TopTrackDurations = statistics.TopTrackDurations.Select(t => new Track
+                        TopTrackDurations = statistics.TopTrackDurations.Select(t => new TrackModel
                         {
                             Id = t.Id,
                             Title = t.Title,

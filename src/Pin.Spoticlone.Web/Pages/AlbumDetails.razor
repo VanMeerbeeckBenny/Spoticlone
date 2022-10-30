@@ -63,8 +63,8 @@ else
 
 @code {
     private string error;
-    private Track currentTrack;
-    private AlbumWithTracks album;
+    private TrackModel currentTrack;
+    private AlbumWithTracksModel album;
     [Parameter]
     public Guid AlbumId { get; set; }
 
@@ -82,18 +82,18 @@ else
         currentTrack = null;
     }
 
-    public async Task ShowDetails(Guid id)
+    public void ShowDetails(Guid id)
     {
         navigation.NavigateTo($"/AlbumDetails/{id}");
     }
 
-    public void UpdateTrack(Track track)
+    public void UpdateTrack(TrackModel track)
     {
         currentTrack = track;
     }
     public void AddTrack()
     {
-        var track = new Track();
+        var track = new TrackModel();
         track.AlbumId = AlbumId;
         track.DiscNumber = album.Album.NumberOfDiscs;
         track.TrackNumber = getMaxPosibleTrackNumberFromLastDisc();
@@ -116,9 +116,9 @@ else
         await Refresh();
 
     }
-    public async Task SaveTrack(Track track)
+    public async Task SaveTrack(TrackModel track)
     {
-        ItemResultModel<Track> result;
+        ItemResultModel<TrackModel> result;
 
         if (track.Id == Guid.Empty)
         {

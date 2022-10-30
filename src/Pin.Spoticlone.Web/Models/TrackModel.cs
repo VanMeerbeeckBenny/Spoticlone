@@ -2,7 +2,7 @@
 
 namespace Pin.Spoticlone.Web.Models
 {
-    public class Track:BaseEntitie
+    public class TrackModel:BaseModel
     {
         [Required]
         [MaxLength(100,ErrorMessage ="{0} can not be longer then {1}")]

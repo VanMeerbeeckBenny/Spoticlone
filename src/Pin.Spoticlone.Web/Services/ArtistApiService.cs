@@ -18,15 +18,15 @@ namespace Pin.Spoticlone.Web.Services
             _httpClient.BaseAddress = new Uri(BaseUrl);
         }     
 
-        public async Task<ItemResultModel<Artist>> GetAllAsync()
+        public async Task<ItemResultModel<ArtistModel>> GetAllAsync()
         {
             try
             {
                 var artists = await _httpClient.GetFromJsonAsync<IEnumerable<ArtistResponseDto>>(_httpClient.BaseAddress);
-                return new ItemResultModel<Artist>
+                return new ItemResultModel<ArtistModel>
                 {
                     IsSucces = true,
-                    Items = artists.Select(a => new Artist
+                    Items = artists.Select(a => new ArtistModel
                     {
                         Id = a.Id,
                         Name = a.Name,
@@ -35,7 +35,7 @@ namespace Pin.Spoticlone.Web.Services
                         Followers = a.Followers,
                         Popularity = a.Popularity,
                         SpotifyId = a.SpotifyId,
-                        Genres = a.Genres.Select(g => new Genre { 
+                        Genres = a.Genres.Select(g => new GenreModel { 
                             Id = g.Id,
                             Name = g.Name
                         }).ToList()
@@ -45,7 +45,7 @@ namespace Pin.Spoticlone.Web.Services
             catch (Exception)
             {
 
-                return new ItemResultModel<Artist> 
+                return new ItemResultModel<ArtistModel> 
                 {                    
                     Error = "Something went wrong!"
                 };
@@ -53,15 +53,15 @@ namespace Pin.Spoticlone.Web.Services
             
         }
 
-        public async Task<ItemResultModel<Artist>> GetByGenrdeIdAsync(Guid id)
+        public async Task<ItemResultModel<ArtistModel>> GetByGenrdeIdAsync(Guid id)
         {
             try
             {
                 var artists = await _httpClient.GetFromJsonAsync<IEnumerable<ArtistResponseDto>>($"{BaseGenreUrl}/{id}/artists");
-                return new ItemResultModel<Artist>
+                return new ItemResultModel<ArtistModel>
                 {
                     IsSucces = true,
-                    Items = artists.Select(a => new Artist
+                    Items = artists.Select(a => new ArtistModel
                     {
                         Id = a.Id,
                         Name = a.Name,
@@ -70,7 +70,7 @@ namespace Pin.Spoticlone.Web.Services
                         Followers = a.Followers,
                         Popularity = a.Popularity,
                         SpotifyId = a.SpotifyId,
-                        Genres = a.Genres.Select(g => new Genre
+                        Genres = a.Genres.Select(g => new GenreModel
                         {
                             Id = g.Id,
                             Name = g.Name
@@ -81,7 +81,7 @@ namespace Pin.Spoticlone.Web.Services
             catch (Exception)
             {
 
-                return new ItemResultModel<Artist>
+                return new ItemResultModel<ArtistModel>
                 {
                     Error = "Something went wrong!"
                 };

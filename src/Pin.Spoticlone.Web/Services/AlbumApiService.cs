@@ -15,7 +15,7 @@ namespace Pin.Spoticlone.Web.Services
             _httpClient = new HttpClient();
             _httpClient.BaseAddress = new Uri(baseUrl);
         }
-        public Task Create(ItemResultModel<Album> item)
+        public Task Create(ItemResultModel<AlbumModel> item)
         {
             throw new NotImplementedException();
         }
@@ -25,15 +25,15 @@ namespace Pin.Spoticlone.Web.Services
             throw new NotImplementedException();
         }
 
-        public async Task<ItemResultModel<Album>> GetAlbumsByArtistIdAsync(Guid artistId)
+        public async Task<ItemResultModel<AlbumModel>> GetAlbumsByArtistIdAsync(Guid artistId)
         {
             try
             {
                 var albums = await _httpClient.GetFromJsonAsync<ArtistWithAlbumsResponseDto>($"https://localhost:44319/api/Artists/{artistId}/albums");
-                return new ItemResultModel<Album>
+                return new ItemResultModel<AlbumModel>
                 {
                     IsSucces = true,
-                    Items = albums.Albums.Select(a => new Album
+                    Items = albums.Albums.Select(a => new AlbumModel
                     {
                         Id = a.Id,
                         Name = a.Name,
@@ -47,25 +47,25 @@ namespace Pin.Spoticlone.Web.Services
             catch (Exception)
             {
 
-                return new ItemResultModel<Album>
+                return new ItemResultModel<AlbumModel>
                 {
                     Error = "Something went wrong!"
                 };
             }
         }
 
-        public async Task<ItemResultModel<AlbumWithTracks>> GetAlbumsWithTracksByIdAsync(Guid albumId)
+        public async Task<ItemResultModel<AlbumWithTracksModel>> GetAlbumsWithTracksByIdAsync(Guid albumId)
         {
             try
             {
                 var albumWithTracks = await _httpClient.GetFromJsonAsync<AlbumWithTracksResponseDto>($"{_httpClient.BaseAddress}/{albumId}/tracks");
-                return new ItemResultModel<AlbumWithTracks>
+                return new ItemResultModel<AlbumWithTracksModel>
                 {
                     IsSucces = true,
-                    Items = new List<AlbumWithTracks>
+                    Items = new List<AlbumWithTracksModel>
                     {
-                        new AlbumWithTracks{ 
-                            Album = new Album
+                        new AlbumWithTracksModel{ 
+                            Album = new AlbumModel
                             {
                                 Id= albumWithTracks.Album.Id,
                                 Image = albumWithTracks.Album.Image,
@@ -76,7 +76,7 @@ namespace Pin.Spoticlone.Web.Services
                                 NumberOfTracks = albumWithTracks.Album.NumberOfTracks,
                                 Duration = albumWithTracks.Album.Duration
                             },
-                            Tracks = albumWithTracks.Tracks.Select(t => new Track
+                            Tracks = albumWithTracks.Tracks.Select(t => new TrackModel
                             {
                                 Id = t.Id,
                                 AlbumId = t.AlbumId,
@@ -98,7 +98,7 @@ namespace Pin.Spoticlone.Web.Services
             catch (Exception)
             {
 
-                return new ItemResultModel<AlbumWithTracks>
+                return new ItemResultModel<AlbumWithTracksModel>
                 {
                     Error = "Something went wrong!"
                 };

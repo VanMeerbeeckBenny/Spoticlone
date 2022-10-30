@@ -8,11 +8,11 @@ namespace Pin.Spoticlone.Web.Models
 {
     public class StatisticsModel
     {
-        public IEnumerable<Artist> TopFollowers { get; set; }
-        public IEnumerable<Artist> TopPopularities { get; set; }
-        public IEnumerable<Album> TopAlbumDurations { get; set; }
-        public IEnumerable<Artist> TopArtistWithMostAlbums { get; set; }
-        public IEnumerable<Track> TopTrackDurations { get; set; }
+        public IEnumerable<ArtistModel> TopFollowers { get; set; }
+        public IEnumerable<ArtistModel> TopPopularities { get; set; }
+        public IEnumerable<AlbumModel> TopAlbumDurations { get; set; }
+        public IEnumerable<ArtistModel> TopArtistWithMostAlbums { get; set; }
+        public IEnumerable<TrackModel> TopTrackDurations { get; set; }
         public string TotalListeningTime { get; set; }
     }
 }

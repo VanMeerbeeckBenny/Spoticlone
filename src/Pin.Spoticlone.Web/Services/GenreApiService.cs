@@ -14,7 +14,7 @@ namespace Pin.Spoticlone.Web.Services
             _httpClient = new HttpClient();
             _httpClient.BaseAddress = new Uri(baseUrl);
         }
-        public Task Create(ItemResultModel<Genre> item)
+        public Task Create(ItemResultModel<GenreModel> item)
         {
             throw new NotImplementedException();
         }

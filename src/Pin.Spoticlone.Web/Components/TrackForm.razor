@@ -42,9 +42,9 @@
 
 @code {
     [Parameter]
-    public Track Track { get; set; }
+    public TrackModel Track { get; set; }
     [Parameter]
-    public EventCallback<Track> OnSave { get; set; }
+    public EventCallback<TrackModel> OnSave { get; set; }
     [Parameter]
     public EventCallback OnCancel { get; set; }
 }

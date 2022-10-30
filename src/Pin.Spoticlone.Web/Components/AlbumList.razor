@@ -34,7 +34,7 @@ else
 
 @code {
     [Parameter]
-    public IEnumerable<Album> Albums { get; set; }
+    public IEnumerable<AlbumModel> Albums { get; set; }
     private string error;
 
 
@@ -51,6 +51,6 @@ else
             var result = await _albumService.GetAlbumsByArtistIdAsync(ArtistId);
             if (result.IsSucces) Albums = result.Items;
             else error = "Something went wrong";
-        } 
+        }
     }
 }

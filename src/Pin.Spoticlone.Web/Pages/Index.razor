@@ -33,9 +33,9 @@ else
 
 @code{
 
-    public IEnumerable<Artist> Artists { get; set; }
+    public IEnumerable<ArtistModel> Artists { get; set; }
     public string error { get; set; }
-    private Artist currentArtist;    
+    private ArtistModel currentArtist;    
 
 
 
@@ -53,7 +53,7 @@ else
 
     }
 
-    public void ShowDetails(Artist artist)
+    public void ShowDetails(ArtistModel artist)
     {
         this.currentArtist = artist;
     }

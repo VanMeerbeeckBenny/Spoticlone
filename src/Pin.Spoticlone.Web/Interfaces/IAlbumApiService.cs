@@ -5,7 +5,7 @@ namespace Pin.Spoticlone.Web.Interfaces
 {
     public interface IAlbumApiService
     {
-        Task<ItemResultModel<Album>> GetAlbumsByArtistIdAsync(Guid artistId);
-        Task<ItemResultModel<AlbumWithTracks>> GetAlbumsWithTracksByIdAsync(Guid artistId);
+        Task<ItemResultModel<AlbumModel>> GetAlbumsByArtistIdAsync(Guid artistId);
+        Task<ItemResultModel<AlbumWithTracksModel>> GetAlbumsWithTracksByIdAsync(Guid artistId);
     }
 }

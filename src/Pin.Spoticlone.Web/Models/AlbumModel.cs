@@ -1,6 +1,6 @@
 ﻿namespace Pin.Spoticlone.Web.Models
 {
-    public class Album:BaseEntitie
+    public class AlbumModel:BaseModel
     {
         public string Name { get; set; }
         public DateTime ReleaseDate { get; set; }

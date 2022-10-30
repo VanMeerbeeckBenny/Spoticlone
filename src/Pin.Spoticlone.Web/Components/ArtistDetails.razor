@@ -48,10 +48,10 @@
 
 @code {
 
-    private IEnumerable<Artist> artistsByFirstGenre;
+    private IEnumerable<ArtistModel> artistsByFirstGenre;
     private string error;
     [Parameter]
-    public Artist Artist { get; set; }
+    public ArtistModel Artist { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
@@ -69,7 +69,7 @@
         navigation.NavigateTo($"/AlbumDetails/{id}");
     }
 
-    public async Task SetArtist(Artist artist)
+    public async Task SetArtist(ArtistModel artist)
     {
         Artist = artist;      
     }
