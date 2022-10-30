@@ -25,7 +25,7 @@
 
     <div class="form-group mt-4">
         <label for="duration">Duration: </label>
-        <InputText id="duration" class="form-control"
+        <InputText id="duration" class="form-control" placeholder="00:00"
                    @bind-Value="Track.Duration" />
         <ValidationMessage For="(() => Track.Duration)"/>
     </div>
@@ -36,7 +36,7 @@
                    @bind-Value="Track.Explicit" />
     </div>
 
-    <button type="submit" class="btn btn-primary" @onclick="Save">Save</button>
+    <button type="submit" class="btn btn-primary">Save</button>
     <button type="button" class="btn btn-warning" @onclick="OnCancel">Cancel</button>
 </EditForm>
 
@@ -47,22 +47,4 @@
     public EventCallback<Track> OnSave { get; set; }
     [Parameter]
     public EventCallback OnCancel { get; set; }
-
-    //Ik moest dit manueel triggeren want
-    //bij het maken van een nieuwe track werd de DataAnnotation niet getriggerd
-
-    private EditContext editContext { get; set; }
-    protected override void OnInitialized()
-    {
-        editContext = new EditContext(new Track());
-        editContext.EnableDataAnnotationsValidation();
-        base.OnInitialized();
-    }
-    private void Save()
-    {
-        bool isValid = editContext.Validate();
-        if (isValid) OnSave.InvokeAsync(Track);
-    }
-
-
 }
