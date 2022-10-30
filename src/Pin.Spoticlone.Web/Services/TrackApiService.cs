@@ -83,8 +83,7 @@ namespace Pin.Spoticlone.Web.Services
         }
 
         public async Task<ItemResultModel<Track>> DeleteAsync(Guid id)
-        {
-            string error;
+        {            
             try
             {                
                 var result = await _httpClient.DeleteAsync($"{_httpClient.BaseAddress}/{id}");
