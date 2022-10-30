@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Pin.Spoticlone.Core.Entities;
 using Pin.Spoticlone.Infrastructure.Data;
-using Pin.Spoticlone.Core.Entities;
 using Pin.Spoticlone.Core.Interfaces.Repositories;
 using System;
 using System.Collections.Generic;
