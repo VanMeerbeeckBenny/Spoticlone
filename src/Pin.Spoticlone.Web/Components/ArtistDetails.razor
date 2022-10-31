@@ -60,11 +60,9 @@
         if (result.IsSucces) artistsByFirstGenre = result.Items;
         else error = result.Error;
 
-    }
+    }    
 
-    
-
-    public async Task ShowalbumDetails(Guid id)
+    public void ShowalbumDetails(Guid id)
     {
         navigation.NavigateTo($"/AlbumDetails/{id}");
     }
