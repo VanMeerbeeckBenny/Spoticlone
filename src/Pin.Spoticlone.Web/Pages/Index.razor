@@ -10,10 +10,12 @@
         <ArtistList Artists="Artists"
                     OnDetails="ShowDetails">
         </ArtistList>
+        <Registration />
     }
     else
     {
         <ArtistDetails Artist="currentArtist"></ArtistDetails>
+        <Registration />
     }
 
 }
@@ -24,18 +26,11 @@ else
     </div>
 }
 
-<Registration />
-
-
-
-
-
-
 @code{
 
     public IEnumerable<ArtistModel> Artists { get; set; }
     public string error { get; set; }
-    private ArtistModel currentArtist;    
+    private ArtistModel currentArtist;
 
 
 

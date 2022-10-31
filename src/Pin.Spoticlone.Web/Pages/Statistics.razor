@@ -33,17 +33,25 @@
 
         <h3>Top Track Durations</h3>
         <TrackList Tracks="CurrentStatistics.TopTrackDurations" />
+        <Registration />
     }
-   
+    else if(CurrentStatistics== null && chosenTotalItems != 0)
+    {
+        <div class="d-flex justify-content-center mt-5">
+            <div class="spinner-border text-primary" role="status">
+                <span class="sr-only"></span>
+            </div>
+            <p class="text-primary">Loading...</p>
+        </div>
+    }
+
 }
 else
 {
-<div class="alert alert-danger" role="alert">
-    @error
-</div>
+    <div class="alert alert-danger" role="alert">
+        @error
+    </div>
 }
-
-<Registration/>
 
 @code {
     private int chosenTotalItems;
