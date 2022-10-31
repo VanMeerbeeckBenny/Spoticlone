@@ -1,9 +1,9 @@
 ﻿@page "/Statistics"
 @inject IStatisticsApiService _statisticsApiService
 
-<h1>Statistics</h1>
-<h2>Pick your top</h2>
-<select class="form-select" @onchange="e => SetChosenTotalItems(e)">
+<h1 class="mb-3">Statistics</h1>
+<h3>Pick your top</h3>
+<select class="form-select mb-5" @onchange="e => SetChosenTotalItems(e)">
     <option value="0">Pleas pick a option</option>
     <option value="3">Top 3</option>
     <option value="5">Top 5</option>
