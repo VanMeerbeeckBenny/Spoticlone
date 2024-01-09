@@ -14,7 +14,7 @@
 
                     </div>
                     <div class="card-footer">
-                        <p>Artist: <span>@album.Name</span></p>
+                        <p>Album: <span>@album.Name</span></p>
                         <p>Release Date: <span>@album.ReleaseDate</span></p>
                     </div>
                 </div>
@@ -38,6 +38,7 @@ else
     </div>
 }
 
+
 @code {
     [Parameter]
     public IEnumerable<AlbumModel> Albums { get; set; }
@@ -46,6 +47,7 @@ else
 
     [Parameter]
     public Guid ArtistId { get; set; }
+    
     [Parameter]
     public EventCallback<Guid> OnShowAlbumDetails { get; set; }
 
