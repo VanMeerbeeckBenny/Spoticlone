@@ -11,7 +11,7 @@ Dive into detailed album views, making it easy to find, enjoy, and manage your p
 Take charge of your music library with basic CRUD operations. Add favorites, create playlists, and customize your collection hassle-free.
 
 ## Top Stats
-Check out the top most followed and popular artists, or delve into albums ranked by their durations.
+Check out the top most followed and popular artists,artist with most albums or delve into albums/tracks ranked by their durations.
 
 
 ## Disclaimer
